@@ -130,3 +130,6 @@ dmypy.json
 
 #vscode
 .vscode/
+
+#costum
+test.py
