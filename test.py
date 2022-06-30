@@ -81,7 +81,7 @@ def img_detect(image_path: str, model):
     result = result.pandas().xyxy[0][["confidence", "class", "name"]]
     if len(result) > 0:
         result["num_inds"] = 1
-        result.groupby(["class", "name"]).agg({'confidence' : 'mean', 'num_inds' : 'sum'}).reset_index()
+        result = result.groupby(["class", "name"]).agg({'confidence' : 'mean', 'num_inds' : 'sum'}).reset_index()
         result["file_name"] = file_name
         result["datetime"] = c_dt
         result["num_inds"] = result["num_inds"].astype(int)
@@ -121,5 +121,5 @@ def save_csv(dataframe, dir_name: str, ori_dir_name: str):
         dataframe.to_csv("./runs/data/" + dir_name + str(index)+ "/" + ori_dir_name + ".csv", index = False)
 
 
-image_path = "D:/coding/dataset/perch-mount/NPUST/test/100EK113/20210308學校牧場上方5米北側03080016.MP4"
-print(vid_detect(image_path, model_color, interval=3))
+image_path = "./sample/015.jpg"
+print(img_detect(image_path, model_color))

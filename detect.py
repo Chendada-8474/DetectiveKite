@@ -130,7 +130,7 @@ def img_detect(image_path: str, model):
     result = result.pandas().xyxy[0][["confidence", "class", "name"]]
     if len(result) > 0:
         result["num_inds"] = 1
-        result.groupby(["class", "name"]).agg({'confidence' : 'mean', 'num_inds' : 'sum'}).reset_index()
+        result = result.groupby(["class", "name"]).agg({'confidence' : 'mean', 'num_inds' : 'sum'}).reset_index()
         result["file_name"] = file_name
         result["datetime"] = c_dt
         result["num_inds"] = result["num_inds"].astype(int)
