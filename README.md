@@ -1,4 +1,3 @@
-###### tags: `采青實業`
 # DetectiveKite
 
 DetectiveKite is a free perch mount camera trap images auto-detection system which is developed base on yolov5s, a light and fast object detection architecture. I believe DetectiveKite can help biologists in Taiwan to accelerate the heavy species labeling works.
