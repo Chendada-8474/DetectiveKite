@@ -186,7 +186,7 @@ def detect(opt):
     if model_infrared: model_infrared.conf = opt.conf_thres_infrared
 
     if opt.classes_color and model_color: model_color.classes = opt.classes_color
-    if opt.classes_infrared and model_infrared: model_infrared.classes = opt.classes_color
+    if opt.classes_infrared and model_infrared: model_infrared.classes = opt.classes_infrared
 
     # read filee in folder
     if os.path.isdir(opt.source):
