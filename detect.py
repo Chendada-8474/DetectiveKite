@@ -191,7 +191,7 @@ def detect(opt):
 
     # read filee in folder
     if os.path.isdir(opt.source):
-        print("path: %s" % opt.source)
+        print("Path detecting: %s" % opt.source)
         if opt.source[-1] != "\\":
             opt.source = opt.source + "\\"
 
