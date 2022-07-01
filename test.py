@@ -5,7 +5,7 @@ import torch
 import yolov5
 import pandas as pd
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 
@@ -120,6 +120,11 @@ def save_csv(dataframe, dir_name: str, ori_dir_name: str):
 
         dataframe.to_csv("./runs/data/" + dir_name + str(index)+ "/" + ori_dir_name + ".csv", index = False)
 
+from time import sleep
 
-image_path = "./sample/015.jpg"
-print(img_detect(image_path, model_color))
+time_start = datetime.now()
+sleep(0.2)
+time_end = datetime.now()
+img_runtime = timedelta(0)
+img_runtime = img_runtime + (time_end - time_start)
+print(img_runtime.total_seconds()*1000)

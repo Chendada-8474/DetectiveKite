@@ -1,7 +1,7 @@
 import argparse
+from functools import total_ordering
 import os
-from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timedelta
 import pandas as pd
 from tqdm import tqdm
 from PIL import Image
@@ -10,8 +10,8 @@ import yolov5
 import torch
 from torchvision import transforms
 
-FILE = Path(__file__).resolve()
-ROOT = FILE.parents[0]
+PROJECT = "DetectiveKite"
+
 img_formats = ['bmp', 'jpg', 'jpeg', 'png', 'tif', 'tiff', 'dng']
 vid_formats = ['mov', 'avi', 'mp4', 'mpg', 'mpeg', 'm4v', 'wmv', 'mkv']
 
@@ -27,18 +27,14 @@ def restricted_float(x):
 
 def parse_opt():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-so', '--source', type=str, default=ROOT/'sample/demo.jpg', help='path of image, vedeo or a folder', required=True)
+    parser.add_argument('-so', '--source', type=str, help='path of image, vedeo or a folder', required=True)
     parser.add_argument('-cc', '--classes-color', nargs='+', type=int, help='filter by class: --classes 0, or --classes 0 2 3')
     parser.add_argument('-ci', '--classes-infrared', nargs='+', type=int, help='filter by class: --classes 0, or --classes 0 2 3')
     parser.add_argument('-ctc', '--conf-thres-color', type=restricted_float, default=0.25, help='confidence threshold of model color')
     parser.add_argument('-cti', '--conf-thres-infrared', type=restricted_float, default=0.25, help='confidence threshold model intrared')
     parser.add_argument('-vi', '--video-interval', type=int, default=1, help='video detection interval (s)')
-    # parser.add_argument('-sc', '--save-csv', action='store_true', help='save results to *.csv', required=True)
-    # parser.add_argument('-si', '--save-img', action='store_true', help='save results to *.jpg or *.mp4', required=True)
-    # parser.add_argument('-sa', '--save', type=str, choices=["all", "media", "csv"], help='save results to csv, *.jpg or *.mp4', required=True)
     parser.add_argument('-cm', '--color-mode', type=str, choices=['all', 'color', 'infrared'], default='all', help='Color by Day, Monochrome Infrared by Night')
     parser.add_argument('-n', '--name', default='exp', help='save to project/name')
-    # parser.add_argument('-p', '--predict', type=str, choices=["best", "candidate"], default="best", help='save to project/name')
 
     args = parser.parse_args()
     return args
@@ -168,11 +164,24 @@ def save_csv(dataframe, dir_name: str, ori_dir_name: str):
                 index+=1
 
         dataframe.to_csv("./runs/data/" + dir_name + str(index)+ "/" + ori_dir_name + ".csv", index = False)
+        return "./runs/data/" + dir_name + str(index)
 
 def detect(opt):
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    device_name = torch.cuda.get_device_name()
+    device_number = torch.cuda.current_device()
+    torch_version = torch.__version__
+    if device == "cpu":
+        print("%s %s CPU" % (PROJECT, torch_version))
+    elif device == "cuda":
+        print("%s %s CUDA:%s (%s)" % (PROJECT, torch_version, device_number, device_name))
+
+    print("Loading models...")
     model_color = yolov5.load("./model/exp_color/best.pt") if opt.color_mode in ["all", "color"] else None
     model_infrared = yolov5.load("./model/exp_infrared/best.pt") if opt.color_mode in ["all", "infrared"] else None
+
+    if model_color and device == "cuda": model_color.cuda()
+    if model_infrared and device == "cuda": model_infrared.cuda()
 
     if model_color: model_color.conf = opt.conf_thres_color
     if model_infrared: model_infrared.conf = opt.conf_thres_infrared
@@ -182,6 +191,7 @@ def detect(opt):
 
     # read filee in folder
     if os.path.isdir(opt.source):
+        print("path: %s" % opt.source)
         if opt.source[-1] != "\\":
             opt.source = opt.source + "\\"
 
@@ -195,6 +205,7 @@ def detect(opt):
             "confidence": [],
             "datetime": [],
             "media": [],
+            "model": [],
         })
 
         num_color_imgs = 0
@@ -203,6 +214,8 @@ def detect(opt):
         num_inf_vids = 0
         num_imgs = 0
         num_vids = 0
+        img_runtime = 0
+        vid_runtime = 0
 
         for file in tqdm(files):
             file_format = file.split(".")[-1].lower()
@@ -210,53 +223,76 @@ def detect(opt):
             file_path = opt.source + file
 
             if file_format in img_formats:
+                time_start = datetime.now()
                 if opt.color_mode == "all":
                     if is_grayscale(file_path, device=device):
                         prdct = img_detect(file_path, model_infrared)
+                        prdct["model"] = "infrared"
                         num_inf_imgs+=1
                     else:
                         prdct = img_detect(file_path, model_color)
+                        prdct["model"] = "color"
                         num_color_imgs+=1
 
                 elif opt.color_mode == "color":
                     prdct = img_detect(file_path, model_color)
+                    prdct["model"] = "color"
                     num_imgs+=1
                 elif opt.color_mode == "infrared":
                     prdct = img_detect(file_path, model_infrared)
+                    prdct["model"] = "infrared"
                     num_imgs+=1
+                time_end = datetime.now()
+                img_runtime = img_runtime + (time_end - time_start).total_seconds()*1000
 
             elif file_format in vid_formats:
+                time_start = datetime.now()
                 if opt.color_mode == "all":
                     if is_grayscale(file_path, device=device):
                         prdct = vid_detect(file_path, model_infrared, interval=opt.video_interval)
+                        prdct["model"] = "infrared"
                         num_inf_vids+=1
                     else:
                         prdct = vid_detect(file_path, model_color, interval=opt.video_interval)
+                        prdct["model"] = "color"
                         num_color_vids+=1
                 elif opt.color_mode == "color":
                     prdct = vid_detect(file_path, model_color)
+                    prdct["model"] = "color"
                     num_vids+=1
                 elif opt.color_mode == "infrared":
                     prdct = vid_detect(file_path, model_infrared)
+                    prdct["model"] = "infrared"
                     num_vids+=1
+                time_end = datetime.now()
+                vid_runtime = vid_runtime + (time_end - time_start).total_seconds()*1000
             else:
                 continue
 
             result = pd.concat([result, prdct])
 
-
         if opt.color_mode == "all":
-            print("%s color images\n%s color video\n%s infrared images\n%s infrared video\nhave been detected" % (num_color_imgs, num_color_vids, num_inf_imgs, num_inf_vids))
+            per_image = int(img_runtime/(num_color_imgs + num_inf_imgs)) if num_color_imgs + num_inf_imgs > 0 else " "
+            per_video = int(vid_runtime/(num_inf_vids + num_color_vids)) if num_inf_vids + num_color_vids > 0 else " "
+
+            print("Files summary: %s color images, %s color video, %s infrared images, %s infrared video, detected" % (num_color_imgs, num_color_vids, num_inf_imgs, num_inf_vids))
+            print("Speed: %sms per image, %sms per video" % (per_image, per_video))
         else:
-            print("%s images\n%s video\nhave been detected" % (num_imgs, num_vids))
+            per_image = int(img_runtime/num_imgs) if num_imgs > 0 else " "
+            per_video = int(vid_runtime/num_vids) if num_vids > 0 else " "
+            print("Files summary: %s images, %s video, have been detected" % (num_imgs, num_vids))
+            print("Speed: %sms per image, %sms per video" % (int(img_runtime/num_imgs), int(vid_runtime/num_vids)))
 
+        save_dir = save_csv(result, opt.name, os.path.basename(opt.source[:-1]))
+        print("Results saved to %s" % save_dir)
 
-        save_csv(result, opt.name, os.path.basename(opt.source[:-1]))
         return
 
     else:
+        print("path: %s" % opt.source)
         file_format = opt.source.split(".")[-1].lower()
         if file_format in img_formats:
+            time_start = datetime.now()
             if opt.color_mode == "all":
                 if is_grayscale(file_path, device=device):
                     prdct = img_detect(file_path, model_infrared)
@@ -267,8 +303,12 @@ def detect(opt):
                 prdct = img_detect(file_path, model_color)
             elif opt.color_mode == "infrared":
                 prdct = img_detect(file_path, model_infrared)
+            time_end = datetime.now()
+            img_runtime = (time_end-time_start).total_seconds()*1000
+            print("Speed: %sms" % int(img_runtime))
 
         elif file_format in vid_formats:
+            time_start = datetime.now()
             if opt.color_mode == "all":
                 if is_grayscale(file_path, device=device):
                     prdct = vid_detect(file_path, model_infrared, interval=opt.video_interval)
@@ -278,10 +318,14 @@ def detect(opt):
                 prdct = vid_detect(file_path, model_color)
             elif opt.color_mode == "infrared":
                 prdct = vid_detect(file_path, model_infrared)
+            time_end = datetime.now()
+            img_runtime = (time_end-time_start).total_seconds()*1000
+            print("Speed: %sms" % int(img_runtime))
         else:
             print("Unsupported media type, Please check the --source")
             return
-        save_csv(prdct, opt.name, os.path.basename(file_path).split(".")[0])
+        save_dir = save_csv(prdct, opt.name, os.path.basename(file_path).split(".")[0])
+        print("Results saved to %s" % save_dir)
         return
 
 def main():
