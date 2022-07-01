@@ -4,11 +4,13 @@ DetectiveKite is a free perch mount camera trap images auto-detection system whi
 
 ## Datasets
 
-### Augmentation
+### Transfer Learning
 - [NABirds Dataset](https://dl.allaboutbirds.org/nabirds)
+
+### Augmentation
 - Private data from [Endemic Species Research Institute](https://www.tesri.gov.tw)
 
-### train and validation
+### Train and Validation
 - Private data from [Institute of Wildlife Conservation](http://wildmic.npust.edu.tw/bin/home.php), National Pingtune University of Science and Technology
 - Private data from [Department of Biological Resources](https://www.ncyu.edu.tw/biors/), National Chiayi University
 - [iNaturalist](https://www.inaturalist.org)
@@ -138,7 +140,6 @@ yolov5 detect --source ./sample/005.JPG --weights ./model/exp_infrared/best.pt  
 Results are saved as .csv format. Columns: file_name, class, name, num_inds, confidence, media, model.
 
 Information of columns:
-
 
 | column   | data type | description |
 | -------- | -------- | -------- |

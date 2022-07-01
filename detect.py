@@ -1,7 +1,6 @@
 import argparse
-from functools import total_ordering
 import os
-from datetime import datetime, timedelta
+from datetime import datetime
 import pandas as pd
 from tqdm import tqdm
 from PIL import Image
