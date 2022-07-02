@@ -9,14 +9,15 @@ DetectiveKite is a free perch mount camera trap images auto-detection system whi
 
 ### Augmentation
 - Private data from [Endemic Species Research Institute](https://www.tesri.gov.tw)
+- [Landscape Pictures, Kaggle](https://www.kaggle.com/datasets/arnaud58/landscape-pictures)
+    - Owner: [Arnaud ROUGETET](https://www.kaggle.com/arnaud58)
+- [Landscape color and grayscale images, Kaggle](https://www.kaggle.com/datasets/theblackmamba31/landscape-image-colorization)
+    - Owner: [Black Mamba](https://www.kaggle.com/theblackmamba31)
 
 ### Train and Validation
 - Private data from [Institute of Wildlife Conservation](http://wildmic.npust.edu.tw/bin/home.php), National Pingtune University of Science and Technology
 - Private data from [Department of Biological Resources](https://www.ncyu.edu.tw/biors/), National Chiayi University
 - [iNaturalist](https://www.inaturalist.org)
-
-
-
 
 ## Install
 
