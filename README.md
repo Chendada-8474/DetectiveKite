@@ -156,7 +156,8 @@ Information of columns:
 *NOTE: If detected media is video, the confidence is the average of every detected frame*
 
 ## Donation
-Althought, this is not a big project, I maintain this projrect without any financial or funds support. If you think this is great, donation would be so helpful.
+Althought, this is not a big project, I maintain this projrect without any financial or funds support. If you think this is great, donation would be so helpful!
+Otherwise, if you have tons of perch mount images and videos are waited to be labeled, we could cooperate! [contact me!](https://chendada-8474.github.io/)
 
 ### PayPal
 <!-- PayPal Logo -->
