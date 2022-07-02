@@ -1,6 +1,6 @@
 # DetectiveKite
 
-DetectiveKite is a free perch mount camera trap images auto-detection system which is developed base on yolov5s, a light and fast object detection architecture. I believe DetectiveKite can help biologists in Taiwan to accelerate the heavy species labeling works.
+[DetectiveKite](https://github.com/Chendada-8474/DetectiveKite) is a free perch mount camera trap images auto-detection system which is developed base on yolov5s, a light and fast object detection architecture. I believe DetectiveKite can help biologists in Taiwan to accelerate the heavy species labeling works.
 
 ## Datasets
 
