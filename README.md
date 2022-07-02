@@ -126,6 +126,8 @@ If you want some thing cool like these:
 
 ![](https://github.com/Chendada-8474/DetectiveKite/blob/main/runs/detect/exp2/005.JPG?raw=true)
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/92ner2dGfrg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 Please use `yolov5 detect` to do it. see [yolov5 package](https://pypi.org/project/yolov5/)
 
 example:
