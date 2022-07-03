@@ -35,6 +35,9 @@ pip install yolov5==6.1.5
 ### GPU Accelerated Computing
 For GPU acceleration, please install the compatible torch package with your device. see [INSTALL PYTORCH](https://pytorch.org). Futhermore, installing [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit) correctly is also necessary.
 
+### Open in Colab
+<a href="https://colab.research.google.com/drive/125qZCGMw5hRn6u5hbekUEUs3aViq-H9n?usp=sharing"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
+
 ## Documentation
 
 ### Detection
