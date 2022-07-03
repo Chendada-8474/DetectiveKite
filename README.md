@@ -43,7 +43,7 @@ For GPU acceleration, please install the compatible torch package with your devi
 `detect.py` runs source of images, video, or a folder. use `--source` or `-so` to set path of target media. The results will be saved to `runs/data/`.
 
 ```
-python detect.py --so img.jpg   # image
+python detect.py -so img.jpg   # image
                       vid.mp4   # video
                       path\     # directory
 ```
