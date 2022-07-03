@@ -29,7 +29,7 @@ cd DetectiveKite
 
 ### Packages
 ```
-pip install yolov5
+pip install yolov5==6.1.5
 ```
 
 ### GPU Accelerated Computing
