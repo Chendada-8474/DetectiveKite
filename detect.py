@@ -31,7 +31,7 @@ def parse_opt():
     parser.add_argument('-ci', '--classes-infrared', nargs='+', type=int, help='filter by class: --classes 0, or --classes 0 2 3')
     parser.add_argument('-ctc', '--conf-thres-color', type=restricted_float, default=0.25, help='confidence threshold of model color')
     parser.add_argument('-cti', '--conf-thres-infrared', type=restricted_float, default=0.25, help='confidence threshold model intrared')
-    parser.add_argument('-vi', '--video-interval', type=int, default=1, help='video detection interval (s)')
+    parser.add_argument('-vi', '--video-interval', type=float, default=1, help='video detection interval (s)')
     parser.add_argument('-cm', '--color-mode', type=str, choices=['all', 'color', 'infrared'], default='all', help='Color by Day, Monochrome Infrared by Night')
     parser.add_argument('-n', '--name', default='exp', help='save to project/name')
 
@@ -82,8 +82,9 @@ def vid_detect(video_path: str, model, interval = 1):
 
     while cap.isOpened():
         suc, frame = cap.read()
-
-        if index_frm % int(interval*fps) == 0 and suc:
+        frm_interval = int(interval*fps) if interval*fps > 2 else 1
+        if index_frm % frm_interval == 0 and suc:
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             result = model(frame, size = 640)
             result = result.pandas().xyxy[0][["confidence", "class", "name"]]
             result["num_inds"] = 1
@@ -218,7 +219,6 @@ def detect(opt):
 
         for file in tqdm(files):
             file_format = file.split(".")[-1].lower()
-
             file_path = opt.source + file
 
             if file_format in img_formats:
@@ -290,6 +290,7 @@ def detect(opt):
     else:
         print("path: %s" % opt.source)
         file_format = opt.source.split(".")[-1].lower()
+        file_path = opt.source
         if file_format in img_formats:
             time_start = datetime.now()
             if opt.color_mode == "all":

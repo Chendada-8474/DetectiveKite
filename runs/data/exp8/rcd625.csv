@@ -1,0 +1,17 @@
+file_name,class,name,num_inds,confidence,datetime,media,model
+test0.jpg,7.0,Red-collared Dove,1.0,0.9356056451797485,2022-07-03 22:11:04,image,color
+test1.jpg,7.0,Red-collared Dove,1.0,0.9338758587837219,2022-07-03 22:11:05,image,color
+test10.jpg,7.0,Red-collared Dove,1.0,0.9374293684959412,2022-07-03 22:11:06,image,color
+test11.jpg,7.0,Red-collared Dove,1.0,0.9036952257156372,2022-07-03 22:11:06,image,color
+test12.jpg,7.0,Red-collared Dove,1.0,0.9182106852531433,2022-07-03 22:11:06,image,color
+test13.jpg,7.0,Red-collared Dove,1.0,0.9187142848968506,2022-07-03 22:11:06,image,color
+test14.jpg,7.0,Red-collared Dove,1.0,0.9319551587104797,2022-07-03 22:11:06,image,color
+test15.jpg,7.0,Red-collared Dove,1.0,0.8798004388809204,2022-07-03 22:11:07,image,color
+test2.jpg,7.0,Red-collared Dove,1.0,0.9356920123100281,2022-07-03 22:11:05,image,color
+test3.jpg,7.0,Red-collared Dove,1.0,0.9368024468421936,2022-07-03 22:11:05,image,color
+test4.jpg,7.0,Red-collared Dove,1.0,0.9324741363525391,2022-07-03 22:11:05,image,color
+test5.jpg,7.0,Red-collared Dove,1.0,0.9151861667633057,2022-07-03 22:11:05,image,color
+test6.jpg,7.0,Red-collared Dove,1.0,0.8989763259887695,2022-07-03 22:11:05,image,color
+test7.jpg,7.0,Red-collared Dove,1.0,0.8705040812492371,2022-07-03 22:11:05,image,color
+test8.jpg,7.0,Red-collared Dove,1.0,0.8879210352897644,2022-07-03 22:11:06,image,color
+test9.jpg,7.0,Red-collared Dove,1.0,0.9362795352935791,2022-07-03 22:11:06,image,color

@@ -62,7 +62,7 @@ Trail camera normally fill infrared light at night or in bad light condition whe
 | `--classes-infrared`    | `-ci`  | int series             | all classes | False |
 | `--conf-thres-color`    | `-ctc` | float, range 0~1       | 0.25 | False |
 | `--conf-thres-infrared` | `-cti` | float, range 0~1       | 0.25 | False |
-| `--vedio-interval`      | `-vi`  | int (second)           | 1 | False |
+| `--vedio-interval`      | `-vi`  | float (second)           | 1 | False |
 | `--color-mode`          | `-cm`  | all, color or infrared | all | False |
 | `--name`                | `-n`   | results folder name    | exp |  False |
 
