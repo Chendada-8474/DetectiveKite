@@ -43,6 +43,7 @@ Colab is an easy way to execute python on browser.
 - setting friendly
 - free GPU
 - easy to share code
+<br>
 <a href="https://colab.research.google.com/drive/125qZCGMw5hRn6u5hbekUEUs3aViq-H9n?usp=sharing"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
 
 ## Documentation
