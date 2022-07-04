@@ -200,8 +200,8 @@ def detect(opt):
     # read filee in folder
     if os.path.isdir(opt.source):
         print("Path detecting: %s" % opt.source)
-        if opt.source[-1] != "\\":
-            opt.source = opt.source + "\\"
+        # if opt.source[-1] != "\\" or opt.source[-1] != "/":
+        #     opt.source = opt.source + "/"
 
         files = os.listdir(opt.source)
 
@@ -227,7 +227,7 @@ def detect(opt):
 
         for file in tqdm(files):
             file_format = file.split(".")[-1].lower()
-            file_path = opt.source + file
+            file_path = opt.source + "/" + file
 
             if file_format in img_formats:
                 time_start = datetime.now()
