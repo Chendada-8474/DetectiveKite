@@ -8,6 +8,8 @@ import cv2
 import yolov5
 import torch
 from torchvision import transforms
+from ffmpeg import probe
+from dateutil.parser import parse
 
 PROJECT = "DetectiveKite"
 
@@ -69,8 +71,7 @@ def vid_detect(video_path: str, model, interval = 1):
 
     cap = cv2.VideoCapture(video_path)
     fps = cap.get(cv2.CAP_PROP_FPS)
-    c_dt = datetime.fromtimestamp(os.path.getctime(video_path)).strftime('%Y-%m-%d %H:%M:%S')
-    parent_dir = os.path.basename(os.path.abspath(os.path.join(video_path, os.pardir)))
+    c_dt = parse(probe(video_path)["streams"][0]["tags"]["creation_time"]).strftime('%Y-%m-%d %H:%M:%S')
     file_name = os.path.basename(video_path)
     index_frm = 0
     data = pd.DataFrame({
@@ -119,7 +120,8 @@ def vid_detect(video_path: str, model, interval = 1):
 
 def img_detect(image_path: str, model):
 
-    c_dt = datetime.fromtimestamp(os.path.getctime(image_path)).strftime('%Y-%m-%d %H:%M:%S')
+    img_exif = Image.open(image_path)._getexif()
+    c_dt = img_exif[36867] if img_exif else None
     file_name = os.path.basename(image_path)
 
     result = model(image_path, size = 640)
