@@ -169,10 +169,16 @@ def save_csv(dataframe, dir_name: str, ori_dir_name: str):
         return "./runs/data/" + dir_name + str(index)
 
 def detect(opt):
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    device_name = torch.cuda.get_device_name()
-    device_number = torch.cuda.current_device()
-    torch_version = torch.__version__
+    if torch.cuda.is_available():
+        device = 'cuda'
+        device_name = torch.cuda.get_device_name()
+        device_number = torch.cuda.current_device()
+    else:
+        device = 'cpu'
+        device_name = None
+        device_number = None
+
+    torch_version = "torch " + torch.__version__
     if device == "cpu":
         print("%s %s CPU" % (PROJECT, torch_version))
     elif device == "cuda":
