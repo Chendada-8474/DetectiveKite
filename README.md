@@ -39,6 +39,10 @@ For GPU acceleration, please install the compatible torch package with your devi
 Please refer to the "FFmpeg 安裝" and "安裝 CUDA、cuDNN" of [環境設定 for Window 10 or 11](https://medium.com/@raymond96383/silic-%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A-for-window10-or-11-f5bb77d4e64f)
 
 ### Open in Colab
+Colab is an easy way to execute python on browser.
+- setting friendly
+- free GPU
+- easy to share code
 <a href="https://colab.research.google.com/drive/125qZCGMw5hRn6u5hbekUEUs3aViq-H9n?usp=sharing"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
 
 ## Documentation
