@@ -28,9 +28,8 @@ cd DetectiveKite
 ```
 
 ### Packages
-```
-pip install yolov5==6.1.5
-ffmpeg-python==0.2.0
+```bash
+pip install -r requirements.txt
 ```
 ### GPU Accelerated Computing
 For GPU acceleration, please install the compatible torch package with your device. see [INSTALL PYTORCH](https://pytorch.org). Futhermore, installing [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit) correctly is also necessary.
