@@ -36,7 +36,8 @@ def parse_opt():
     parser.add_argument('-cti', '--conf-thres-infrared', type=restricted_float, default=0.25, help='confidence threshold model intrared')
     parser.add_argument('-vi', '--video-interval', type=float, default=1, help='video detection interval (s)')
     parser.add_argument('-cm', '--color-mode', type=str, choices=['all', 'color', 'infrared'], default='all', help='Color by Day, Monochrome Infrared by Night')
-    parser.add_argument('-n', '--name', default='exp', help='save to project/name')
+    parser.add_argument('-na', '--name', default='exp', help='save to project/name')
+    parser.add_argument('-sn', '--sp-name', type=str, nargs='+',default=["en"], choices=["sci", "ch", "jp"], help='result species name, default in Englisg common name')
 
     args = parser.parse_args()
     return args
@@ -146,7 +147,7 @@ def img_detect(image_path: str, model):
         })
     return result
 
-def save_csv(dataframe, dir_name: str, ori_dir_name: str):
+def save_csv(dataframe, dir_name: str, ori_dir_name: str, sp_lang: list):
     directory = Path("./runs/data/")
     directory.mkdir(parents=True, exist_ok=True)
     dirs = os.listdir(directory)
@@ -159,6 +160,23 @@ def save_csv(dataframe, dir_name: str, ori_dir_name: str):
         else:
             index+=1
 
+    color_sp = pd.read_csv("./model/exp_color/classes_color.csv")
+    infrared_sp = pd.read_csv("./model/exp_infrared/color_infrared.csv")
+    color_sp["model"] = "color"
+    infrared_sp["model"] = "infrared"
+    sp_info = pd.concat([color_sp, infrared_sp])
+
+    abb_ref = {
+        "sci": "scientific_name",
+        "ch": "chinese_name",
+        "jp": "japanese_name",
+    }
+
+    for lang in sp_lang:
+        if lang == "en":
+            continue
+        dataframe = pd.merge(dataframe, sp_info[["class", "model", abb_ref[lang]]], on=["class", "model"], how="left")
+
     dataframe.to_csv("./runs/data/" + dir_name + str(index)+ "/" + ori_dir_name + ".csv", index = False)
     return "./runs/data/" + dir_name + str(index)
 
@@ -168,13 +186,13 @@ def detect(opt):
         device = 'cuda'
         device_name = torch.cuda.get_device_name()
         device_number = torch.cuda.current_device()
-        print("%s %s CPU" % (PROJECT, torch_version))
+        print("%s %s CUDA:%s (%s)" % (PROJECT, torch_version, device_number, device_name))
     else:
         device = 'cpu'
         device_name = None
         device_number = None
+        print("%s %s CPU" % (PROJECT, torch_version))
 
-        print("%s %s CUDA:%s (%s)" % (PROJECT, torch_version, device_number, device_name))
 
     print("Loading models...")
     model_color = yolov5.load("./model/exp_color/best.pt") if opt.color_mode in ["all", "color"] else None
@@ -280,7 +298,7 @@ def detect(opt):
             print("Files summary: %s images, %s video, have been detected" % (num_imgs, num_vids))
             print("Speed: %sms per image, %sms per video" % (int(img_runtime/num_imgs), int(vid_runtime/num_vids)))
 
-        save_dir = save_csv(result, opt.name, os.path.basename(opt.source[:-1]))
+        save_dir = save_csv(result, opt.name, os.path.basename(opt.source[:-1]), opt.sp_name)
         print("Results saved to %s" % save_dir)
 
         return
@@ -322,7 +340,7 @@ def detect(opt):
         else:
             print("Unsupported media type, Please check the --source")
             return
-        save_dir = save_csv(prdct, opt.name, os.path.basename(file_path).split(".")[0])
+        save_dir = save_csv(prdct, opt.name, os.path.basename(file_path).split(".")[0], opt.sp_name)
         print("Results saved to %s" % save_dir)
         return
 
