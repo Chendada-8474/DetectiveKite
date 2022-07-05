@@ -15,7 +15,7 @@
     - Owner: [Black Mamba](https://www.kaggle.com/theblackmamba31)
 
 ### Train and Validation
-- Private data from [Institute of Wildlife Conservation](http://wildmic.npust.edu.tw/bin/home.php), National Pingtune University of Science and Technology
+- Private data from [Institute of Wildlife Conservation](http://wildmic.npust.edu.tw/bin/home.php), National Pingtung University of Science and Technology
 - Private data from [Department of Biological Resources](https://www.ncyu.edu.tw/biors/), National Chiayi University
 - [iNaturalist](https://www.inaturalist.org)
 
