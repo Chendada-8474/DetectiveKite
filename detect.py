@@ -37,7 +37,7 @@ def parse_opt():
     parser.add_argument('-vi', '--video-interval', type=float, default=1, help='video detection interval (s)')
     parser.add_argument('-cm', '--color-mode', type=str, choices=['all', 'color', 'infrared'], default='all', help='Color by Day, Monochrome Infrared by Night')
     parser.add_argument('-na', '--name', default='exp', help='save to project/name')
-    parser.add_argument('-sn', '--sp-name', type=str, nargs='+',default=["en"], choices=["sci", "ch", "jp"], help='result species name, default in Englisg common name')
+    parser.add_argument('-sn', '--sp-name', type=str, nargs='+',default=["en"], choices=["en", "sci", "ch", "jp"], help='result species name, default in Englisg common name')
 
     args = parser.parse_args()
     return args
