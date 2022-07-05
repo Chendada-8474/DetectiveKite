@@ -75,7 +75,8 @@ Trail camera normally fill infrared light at night or in bad light condition whe
 | `--conf-thres-infrared` | `-cti` | float, range 0~1       | 0.25 | False |
 | `--vedio-interval`      | `-vi`  | float (second)           | 1 | False |
 | `--color-mode`          | `-cm`  | all, color or infrared | all | False |
-| `--name`                | `-n`   | results folder name    | exp |  False |
+| `--name`                | `-na`   | results folder name    | exp |  False |
+| `--sp-name`             | `-sn`   | species name option    | sci, ch, or jp |  False |
 
 ##### Classes
 
@@ -128,10 +129,31 @@ python detect.py -so path\ -cm color   # use color model to detect all files
 After detection, results will be saved to `./runs/data/exp/`. exp is the default folder name. You can change the name via `--name`.
 
 ```
-python detect.py -so path\ -n project
+python detect.py -so path\ -na project
 ```
 
 Then, results will be saved to `./runs/data/project/`
+
+##### Species Name
+The species name is saved in English common name (default). You can choose in scientific name, Chinese common name, Japanese common or Multiple.
+| name     | lang code |
+| -------- | --------- |
+| scientific name     | sn |
+| Chinese common name | ch |
+| Japanese common     | jp |
+
+non for English common name
+```
+python detect.py -so path\
+```
+
+add name
+```
+python detect.py -so path\ -sn ch    # add Chinese common name
+　　　　　　　　　　　　　　　　　sci   # add scientific name
+                               jp    # add Japanese name
+                               ch sci jp    # Multiple is also legal
+```
 
 ### Draw Bounding Box and Label Name
 If you want some thing cool like these:
