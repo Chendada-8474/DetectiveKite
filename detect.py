@@ -1,5 +1,6 @@
 import argparse
 import os
+from pathlib import Path
 from datetime import datetime
 import pandas as pd
 from tqdm import tqdm
@@ -147,26 +148,20 @@ def img_detect(image_path: str, model):
     return result
 
 def save_csv(dataframe, dir_name: str, ori_dir_name: str):
-    dirs = os.listdir("./")
-    if "runs" not in dirs:
-        os.mkdir("./runs")
-    else:
-        dirs = os.listdir("./runs/")
-        if "data" not in dirs:
-            os.mkdir("./runs/data")
+    directory = Path("./runs/data/")
+    directory.mkdir(parents=True, exist_ok=True)
+    dirs = os.listdir(directory)
+
+    index = 0
+    while True:
+        if dir_name + str(index) not in dirs:
+            os.mkdir("./runs/data/" + dir_name + str(index))
+            break
         else:
-            dirs = os.listdir("./runs/data/")
+            index+=1
 
-        index = 0
-        while True:
-            if dir_name + str(index) not in dirs:
-                os.mkdir("./runs/data/" + dir_name + str(index))
-                break
-            else:
-                index+=1
-
-        dataframe.to_csv("./runs/data/" + dir_name + str(index)+ "/" + ori_dir_name + ".csv", index = False)
-        return "./runs/data/" + dir_name + str(index)
+    dataframe.to_csv("./runs/data/" + dir_name + str(index)+ "/" + ori_dir_name + ".csv", index = False)
+    return "./runs/data/" + dir_name + str(index)
 
 def detect(opt):
     if torch.cuda.is_available():
