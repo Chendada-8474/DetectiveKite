@@ -122,7 +122,7 @@ def vid_detect(video_path: str, model, interval = 1):
 def img_detect(image_path: str, model):
 
     img_exif = Image.open(image_path)._getexif()
-    c_dt = img_exif[36867] if img_exif else None
+    c_dt = datetime.strptime(img_exif[36867], '%Y:%m:%d %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S') if img_exif else None
     file_name = os.path.basename(image_path)
 
     result = model(image_path, size = 640)
