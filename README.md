@@ -21,6 +21,13 @@
 
 ## Install
 
+### Environment
+#### Python
+yolov5 need python>=3.7.0, DetectiveKite is developed under 3.9.10
+
+#### Others
+Please refer to the "FFmpeg 安裝" and "安裝 CUDA、cuDNN" of [環境設定 for Window 10 or 11](https://medium.com/@raymond96383/silic-%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A-for-window10-or-11-f5bb77d4e64f)
+
 ### git clone
 ```
 git clone https://github.com/Chendada-8474/DetectiveKite.git
@@ -34,9 +41,6 @@ ffmpeg-python==0.2.0
 ```
 ### GPU Accelerated Computing
 For GPU acceleration, please install the compatible torch package with your device. see [INSTALL PYTORCH](https://pytorch.org). Futhermore, installing [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit) correctly is also necessary.
-
-### Environment
-Please refer to the "FFmpeg 安裝" and "安裝 CUDA、cuDNN" of [環境設定 for Window 10 or 11](https://medium.com/@raymond96383/silic-%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A-for-window10-or-11-f5bb77d4e64f)
 
 ### Open in Colab
 Colab is an easy way to execute python on browser.
