@@ -164,19 +164,17 @@ def save_csv(dataframe, dir_name: str, ori_dir_name: str):
     return "./runs/data/" + dir_name + str(index)
 
 def detect(opt):
+    torch_version = "torch " + torch.__version__
     if torch.cuda.is_available():
         device = 'cuda'
         device_name = torch.cuda.get_device_name()
         device_number = torch.cuda.current_device()
+        print("%s %s CPU" % (PROJECT, torch_version))
     else:
         device = 'cpu'
         device_name = None
         device_number = None
 
-    torch_version = "torch " + torch.__version__
-    if device == "cpu":
-        print("%s %s CPU" % (PROJECT, torch_version))
-    elif device == "cuda":
         print("%s %s CUDA:%s (%s)" % (PROJECT, torch_version, device_number, device_name))
 
     print("Loading models...")
@@ -195,10 +193,6 @@ def detect(opt):
     # read filee in folder
     if os.path.isdir(opt.source):
         print("Path detecting: %s" % opt.source)
-        # if opt.source[-1] == "\\":
-        #     opt.source = opt.source[:-2]
-        # elif opt.source[-1] == "/":
-        #     opt.source = opt.source[:-1]
 
         files = os.listdir(opt.source)
 
