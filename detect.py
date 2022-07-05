@@ -65,8 +65,7 @@ def is_grayscale(img_path: str, device = "cpu"):
 
     if percnt0 > 0.8:
         return True
-    else:
-        return False
+    return False
 
 def vid_detect(video_path: str, model, interval = 1):
 
