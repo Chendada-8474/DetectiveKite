@@ -138,9 +138,9 @@ Then, results will be saved to `./runs/data/project/`
 The species name is saved in English common name (default). You can choose in scientific name, Chinese common name, Japanese common or Multiple.
 | name     | lang code |
 | -------- | --------- |
-| scientific name     | sn |
-| Chinese common name | ch |
-| Japanese common     | jp |
+| scientific name         | sn |
+| Chinese common name     | ch |
+| Japanese common name    | jp |
 
 non for English common name
 ```
