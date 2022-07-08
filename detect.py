@@ -79,6 +79,10 @@ def vid_detect(video_path: str, model, interval = 1):
         "confidence":[],
         "class":[],
         "name":[],
+        "xmin":[],
+        "ymin":[],
+        "xmax":[],
+        "ymax":[],
         "num_inds":[],
         })
 
@@ -88,10 +92,18 @@ def vid_detect(video_path: str, model, interval = 1):
         if index_frm % frm_interval == 0 and suc:
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             result = model(frame, size = 640)
-            result = result.pandas().xyxy[0][["confidence", "class", "name"]]
+            # result = result.pandas().xyxy[0][["confidence", "class", "name"]]
+            result = result.pandas().xyxy[0]
             result["num_inds"] = 1
             if len(result) > 0:
-                result = result.groupby(["class", "name"]).agg({'confidence' : 'mean', 'num_inds' : 'sum'}).reset_index()
+                result = result.groupby(["class", "name"]).agg({
+                    'confidence' : 'mean',
+                    'num_inds' : 'sum',
+                    'xmin' : 'min',
+                    'ymin' : 'min',
+                    'xmax' : 'max',
+                    'ymax' : 'max',
+                    }).reset_index()
                 data = pd.concat([data, result])
 
         elif index_frm % (interval*fps) != 0 and suc:
@@ -101,12 +113,23 @@ def vid_detect(video_path: str, model, interval = 1):
         index_frm+=1
 
     if len(data) > 0:
-        data = data.groupby(["class", "name"]).agg({'confidence' : 'mean', 'num_inds' : 'max'}).reset_index()
+        data = data.groupby(["class", "name"]).agg({
+            'confidence' : 'mean',
+            'num_inds' : 'max',
+            'xmin' : 'min',
+            'ymin' : 'min',
+            'xmax' : 'max',
+            'ymax' : 'max',
+            }).reset_index()
         data["file_name"] = file_name
         data["datetime"] = c_dt
         data["num_inds"] = data["num_inds"].astype(int)
         data["media"] = "video"
-        data = data[["file_name", "class", "name", "num_inds", "confidence", "datetime", "media"]]
+        data = data[["file_name", "class", "name", "num_inds", "confidence", "datetime", "media", "xmin", "ymin", "xmax", "ymax"]]
+        data["xmin"] = data["xmin"].astype(int)
+        data["ymin"] = data["ymin"].astype(int)
+        data["xmax"] = data["xmax"].astype(int)
+        data["ymax"] = data["ymax"].astype(int)
     else:
         data = pd.DataFrame({
             "file_name": [file_name],
@@ -116,6 +139,10 @@ def vid_detect(video_path: str, model, interval = 1):
             "confidence": [None],
             "datetime": [c_dt],
             "media": ["video"],
+            "xmin": [None],
+            "ymin": [None],
+            "xmax": [None],
+            "ymax": [None],
         })
     return data
 
@@ -126,15 +153,26 @@ def img_detect(image_path: str, model):
     file_name = os.path.basename(image_path)
 
     result = model(image_path, size = 640)
-    result = result.pandas().xyxy[0][["confidence", "class", "name"]]
+    result = result.pandas().xyxy[0]
     if len(result) > 0:
         result["num_inds"] = 1
-        result = result.groupby(["class", "name"]).agg({'confidence' : 'mean', 'num_inds' : 'sum'}).reset_index()
+        result = result.groupby(["class", "name"]).agg({
+            'confidence' : 'mean',
+            'num_inds' : 'sum',
+            'xmin' : 'min',
+            'ymin' : 'min',
+            'xmax' : 'max',
+            'ymax' : 'max',
+            }).reset_index()
         result["file_name"] = file_name
         result["datetime"] = c_dt
         result["num_inds"] = result["num_inds"].astype(int)
         result["media"] = "image"
-        result = result[["file_name", "class", "name", "num_inds", "confidence", "datetime", "media"]]
+        result = result[["file_name", "class", "name", "num_inds", "confidence", "datetime", "media", "xmin", "ymin", "xmax", "ymax"]]
+        result["xmin"] = result["xmin"].astype(int)
+        result["ymin"] = result["ymin"].astype(int)
+        result["xmax"] = result["xmax"].astype(int)
+        result["ymax"] = result["ymax"].astype(int)
     else:
         result = pd.DataFrame({
             "file_name": [file_name],
@@ -144,6 +182,10 @@ def img_detect(image_path: str, model):
             "confidence": [None],
             "datetime": [c_dt],
             "media": ["image"],
+            "xmin": [None],
+            "ymin": [None],
+            "xmax": [None],
+            "ymax": [None],
         })
     return result
 
@@ -222,6 +264,10 @@ def detect(opt):
             "datetime": [],
             "media": [],
             "model": [],
+            "xmin": [],
+            "ymin": [],
+            "xmax": [],
+            "ymax": [],
         })
 
         num_color_imgs = 0

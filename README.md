@@ -188,8 +188,15 @@ Information of columns:
 | datetime        | datetime  | file create datetime |
 | media           | string    | image or video |
 | model           | string    | detected by color model or infrared model |
+| xmin            | integer   | minimum pixel of bounding box on x axis  |
+| ymin            | integer   | minimum pixel of bounding box on y axis |
+| xmax            | integer   | maximum pixel of bounding box on x axis |
+| ymax            | integer   | maximum pixel of bounding box on y axis |
 
-*NOTE: If detected media is video, the confidence is the average of every detected frame*
+*NOTE:*
+*If detected media is video, the confidence is the average of every detected frame.*
+*In image, if two or more individuals detected, the xmin and ymin are the smallest values of xmin and ymin. The xmax and ymax are the biggest values of xmax and ymax.*
+*In video, the xmin and ymin are the smallest values of xmin and ymin of all frames. The xmax and ymax are the biggest values of xmax and ymax of all frames.*
 
 ## Donation
 Althought, this is not a big project, I maintain this project without any financial or funds support. If you think this is great and want to encourage me, donation would be so helpful!
