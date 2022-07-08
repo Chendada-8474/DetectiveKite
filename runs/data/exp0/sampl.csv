@@ -1,0 +1,23 @@
+file_name,class,name,num_inds,confidence,datetime,media,model,xmin,ymin,xmax,ymax
+001.JPG,,,0.0,,,image,color,,,,
+002.JPG,1,Savanna Nightjar,1.0,0.9506108164787292,,image,infrared,397,193,538,392
+003.JPG,1,Savanna Nightjar,1.0,0.9453226923942566,,image,infrared,356,182,523,443
+004.JPG,,,0.0,,,image,color,,,,
+005.JPG,3,Australasian Grass-Owl,1.0,0.9212783575057983,,image,infrared,66,52,274,404
+006.JPG,3,Australasian Grass-Owl,1.0,0.9321668744087219,,image,infrared,190,85,406,370
+007.JPG,3,Black Drongo,1.0,0.954548716545105,,image,color,201,194,407,458
+008.JPG,2,Brown Shrike,1.0,0.938909113407135,,image,color,260,266,438,451
+009.JPG,2,Brown Shrike,1.0,0.9465125203132629,,image,color,271,262,421,455
+010.JPG,0,Collared Scops-Owl,1.0,0.9513380527496338,,image,infrared,157,156,448,399
+011.JPG,,,0.0,,,image,infrared,,,,
+012.JPG,2,Brown Shrike,1.0,0.9147709608078003,,image,color,239,270,511,438
+013.JPG,,,0.0,,,image,color,,,,
+014.JPG,3,Black Drongo,1.0,0.9560312032699585,,image,color,211,182,452,455
+015.jpg,8,Gray Treepie,2.0,0.8761579990386963,,image,color,3,152,581,479
+016.jpg,1,Light-vented Bulbul,1.0,0.8506960868835449,,image,color,372,112,442,169
+016.jpg,2,Brown Shrike,1.0,0.9300010800361633,,image,color,447,316,529,480
+017.jpg,0,Black-winged Kite,1.0,0.7819761037826538,,image,color,0,79,581,397
+018.jpg,15,Javan Myna,1.0,0.9327011108398438,,image,color,128,84,311,300
+019.jpg,5,Common Kingfisher,1.0,0.9342503547668457,,image,color,286,249,406,456
+020.jpg,5,Common Kingfisher,1.0,0.9412979483604431,,image,color,223,258,407,460
+021.jpg,10,Long-tailed Shrike,1.0,0.9440233111381531,,image,color,292,165,464,340
