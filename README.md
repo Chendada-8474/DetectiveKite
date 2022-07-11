@@ -204,13 +204,13 @@ Althought, this is not a big project, I maintain this project without any financ
 In addition, if you have tons of perch mount images and videos are waited to be labeled, we could cooperate! [contact me!](https://chendada-8474.github.io/)
 
 ### 綠界科技
-<a href="https://p.ecpay.com.tw/0696F33"><img src="https://payment.ecpay.com.tw/Upload/QRCode/202207/QRCode_0efd953f-7cef-4a47-b6a6-1265aa3aa12f.png"/></a>
+<a href="https://p.ecpay.com.tw/0696F33"><img src="https://www.ecpay.com.tw/Content/images/logo_pay200x55.png"/></a>
 <br>
 https://p.ecpay.com.tw/0696F33
 
 ### PayPal
 <!-- PayPal Logo -->
-<tr><td align="center"></td></tr><tr><td align="center"><a href="https://paypal.me/tachihchen" title="tachihchen" onclick="javascript:window.open('https://www.paypal.com/tw/webapps/mpp/paypal-popup?locale.x=zh_TW','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img src="https://www.ecpay.com.tw/Content/images/logo200x120.png" alt="使用 PayPal 立即購" /></a></td></tr>
+<tr><td align="center"></td></tr><tr><td align="center"><a href="https://paypal.me/tachihchen" title="tachihchen" onclick="javascript:window.open('https://www.paypal.com/tw/webapps/mpp/paypal-popup?locale.x=zh_TW','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-medium.png" alt="使用 PayPal 立即購" /></a></td></tr>
 <!-- PayPal Logo -->
 <br>
 https://paypal.me/tachihchen
