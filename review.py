@@ -15,8 +15,9 @@ img_formats = ['bmp', 'jpg', 'jpeg', 'png', 'tif', 'tiff', 'dng']
 vid_formats = ['mov', 'avi', 'mp4', 'mpg', 'mpeg', 'm4v', 'wmv', 'mkv']
 
 with open("./bird_names.yaml", "r") as birds:
-    bird_names = yaml.load(birds, Loader=yaml.CLoader)["bird_name"]
-
+    yaml_file = yaml.load(birds, Loader=yaml.CLoader)
+    bird_names = yaml_file["bird_name"]
+    bird_color = yaml_file["bird_colors"]
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -27,6 +28,10 @@ class MainWindow(QMainWindow):
         self.pred = pd.DataFrame({})
         self.dir_path = ""
         self.csv_path = ""
+
+        # model species info for box color
+        # color_sp = pd.read_csv("./model/exp_color/classes_color.csv")
+        # infrad_sp = pd.read_csv("./model/exp_infrared/color_infrared.csv")
 
         # Tool box
         self.open_dir = self.findChild(QAction, "actionOpen_Dir")
@@ -125,12 +130,20 @@ class MainWindow(QMainWindow):
             painter = QPainter()
             painter.begin(obj)
             if obj == self.paint_label:
-                painter.setPen(QPen(Qt.red, 4, Qt.SolidLine))  # Some specific painting
-                painter.setFont(QFont('Arial', 20, QFont.Bold))
-            for b in self.bbox:
-                painter.drawRect(b[0], b[1], b[2], b[3])
-                ty = b[1] - 10 if b[1] > 50 else b[1] + 50
-                painter.drawText(QPoint(b[0], ty), str(b[6]) + ". " + b[4] + " " + str(b[5]))
+                painter.setFont(QFont('Arial', 16, QFont.Bold))
+                for b in self.bbox:
+                    painter.setPen(QPen(QColor(b[7][0], b[7][1], b[7][2]), 4, Qt.SolidLine))
+                    painter.setBrush(Qt.NoBrush)
+                    painter.drawRect(b[0], b[1], b[2], b[3])
+                    painter.setBrush(QColor(b[7][0], b[7][1], b[7][2]))
+                    painter.drawRect(b[0], b[1] - 35, b[2], 35)
+
+                    # draw text and background
+                    painter.setPen(QPen(Qt.white))  # Some specific painting
+                    ty = b[1] - 10 if b[1] > 50 else b[1] + 50
+                    print_name = str(b[6]) + ". " + b[4] + " " + str(b[5])
+                    painter.drawText(QPoint(b[0] + 5, ty), print_name)
+
             painter.end()
             return True
         return super().eventFilter(obj, event)
@@ -362,20 +375,29 @@ class MainWindow(QMainWindow):
 
                 # draw bounding box
                     if pd.isnull(row["name"]) or pd.isnull(row["reviewed_name"]):
-                        boxes.append([0, 0, 0, 0, "", "", ""])
+                        boxes.append([0, 0, 0, 0, "", "", "", [0,0,0]])
                     else:
+                        if row["reviewed_name"] in list(bird_color.keys()):
+                            rgb_r = bird_color[row["reviewed_name"]][0]
+                            rgb_g = bird_color[row["reviewed_name"]][1]
+                            rgb_b = bird_color[row["reviewed_name"]][2]
+                        else:
+                            rgb_r = 28
+                            rgb_g = 28
+                            rgb_b = 28
+
                         box_x = int(round((pre_img_w * (row["xmin"]/iw)), 0))
                         box_y = int(round((pre_img_h * (row["ymin"]/ih)), 0))
                         box_w = int(round((row["xmax"] - row["xmin"])/iw * pre_img_w, 0))
                         box_h = int(round((row["ymax"] - row["ymin"])/ih * pre_img_h, 0))
-                        boxes.append([box_x, box_y, box_w, box_h, row["reviewed_name"], round(row["confidence"], 2), i])
+                        boxes.append([box_x, box_y, box_w, box_h, row["reviewed_name"], round(row["confidence"], 2), i, [rgb_r, rgb_g, rgb_b]])
 
                 self.bbox = boxes
                 self.paint_label.setGeometry(self.ori_x, self.ori_y, pre_img_w, pre_img_h)
 
             elif fat in vid_formats:
                 self.paint_label.setGeometry(0, 0, 0, 0)
-                self.bbox = [[0, 0, 0, 0, "", "", ""]]
+                self.bbox = [[0, 0, 0, 0, "", "", "", [0,0,0]]]
 
                 self.stack.setCurrentIndex(1)
                 self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
