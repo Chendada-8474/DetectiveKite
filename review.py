@@ -417,7 +417,7 @@ class MainWindow(QMainWindow):
         self.show_media(self.dir_path, self.media_index)
 
     def opencsv(self):
-        csv_path = QFileDialog.getOpenFileName(self, "select the prediction csv by DetectKite", "", ".csv (*.csv)")
+        csv_path = QFileDialog.getOpenFileName(self, "select the prediction csv by DetectKite", "./runs/data/", ".csv (*.csv)")
         self.csv_path = csv_path[0]
 
         if self.csv_path == "":
