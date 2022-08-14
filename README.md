@@ -174,6 +174,9 @@ yolov5 detect --source ./sample/005.JPG --weights ./model/exp_infrared/best.pt  
 
 
 ## Results
+
+### Results Format
+
 Results are saved as .csv format. Columns: file_name, class, name, num_inds, confidence, media, model.
 
 Information of columns:
@@ -197,6 +200,23 @@ Information of columns:
 *If detected media is video, the confidence is the average of every detected frame.*
 *In image, if two or more individuals detected, the xmin and ymin are the smallest values of xmin and ymin. The xmax and ymax are the biggest values of xmax and ymax.*
 *In video, the xmin and ymin are the smallest values of xmin and ymin of all frames. The xmax and ymax are the biggest values of xmax and ymax of all frames.*
+
+### Review
+`review.py` is a GUI interface results reviewer.
+```
+python review.py
+```
+
+#### Hotkey
+| Key   | Description type |
+| -------- | -------- |
+| A       | previous media    |
+| D           | next media   |
+| L           | add species   |
+| C           | confirm changes   |
+| 1 ~ 9       | focus to the species input box of row 1 ~ 9 |
+| Ctrl+S      | save csv file  |
+
 
 ## Donation
 Althought, this is not a big project, I maintain this project without any financial or funds support. If you think this is great and want to encourage me, donation would be so helpful!
