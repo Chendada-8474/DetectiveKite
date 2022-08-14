@@ -207,6 +207,8 @@ Information of columns:
 python review.py
 ```
 
+![](https://github.com/Chendada-8474/DetectiveKite/blob/main/demo/review_gui_interface.png)
+
 #### Hotkey
 | Key   | Description type |
 | -------- | -------- |
