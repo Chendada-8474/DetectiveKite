@@ -220,6 +220,8 @@ python review.py
 | Ctrl + 1 ~ 9 | delete the species input box of row 1 ~ 9 |
 | Ctrl+S       | save csv file  |
 
+*NOTE:*
+*If some video formats are not supported, try installing [K-lite](https://codecguide.com/download_kl.htm).*
 
 ## Donation
 Althought, this is not a big project, I maintain this project without any financial or funds support. If you think this is great and want to encourage me, donation would be so helpful!
