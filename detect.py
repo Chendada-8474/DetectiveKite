@@ -92,7 +92,6 @@ def vid_detect(video_path: str, model, interval = 1):
         if index_frm % frm_interval == 0 and suc:
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             result = model(frame, size = 640)
-            # result = result.pandas().xyxy[0][["confidence", "class", "name"]]
             result = result.pandas().xyxy[0]
             result["num_inds"] = 1
             if len(result) > 0:
