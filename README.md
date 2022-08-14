@@ -210,12 +210,13 @@ python review.py
 #### Hotkey
 | Key   | Description type |
 | -------- | -------- |
-| A       | previous media    |
-| D           | next media   |
-| L           | add species   |
-| C           | confirm changes   |
-| 1 ~ 9       | focus to the species input box of row 1 ~ 9 |
-| Ctrl+S      | save csv file  |
+| A            | previous media    |
+| D            | next media   |
+| L            | add species   |
+| C            | confirm changes   |
+| 1 ~ 9        | focus to the species input box of row 1 ~ 9 |
+| Ctrl + 1 ~ 9 | delete the species input box of row 1 ~ 9 |
+| Ctrl+S       | save csv file  |
 
 
 ## Donation

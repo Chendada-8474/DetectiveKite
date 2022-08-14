@@ -99,10 +99,24 @@ class MainWindow(QMainWindow):
 
         # save csv
         self.saved = True
+
         self.save_st = QShortcut(QKeySequence("Ctrl+S"), self)
         self.save_st.activated.connect(self.savecsv)
 
+        for i in range(0,10):
+            self.delete = QShortcut(QKeySequence("Ctrl+%s" % i), self)
+            self.delete.activated.connect(self.key_delete)
+
         self.show()
+
+    def key_delete(self):
+        sc = self.sender().key().toString()
+        sc_index = int(sc[-1])
+        for i in range(0,4):
+            item = self.editLayout.itemAt(sc_index*4+i)
+            if item:
+                item = item.widget()
+                item.deleteLater()
 
     def broadcast_status(self, content: str, color = "red"):
         self.status_label.setStyleSheet("font-size: 16px; color: %s" % color)
