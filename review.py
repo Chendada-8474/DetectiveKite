@@ -1,5 +1,3 @@
-from cmath import isnan
-import csv
 from PyQt5.QtWidgets import *
 from PyQt5.QtMultimediaWidgets import *
 from PyQt5.QtMultimedia import *
