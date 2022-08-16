@@ -92,10 +92,10 @@ class MainWindow(QMainWindow):
         # edit prediction
         self.editLayout = self.findChild(QGridLayout, "gridLayout")
         self.addlineButton = self.findChild(QPushButton, "addlineButton")
-        self.comform_button = self.findChild(QPushButton, "confirmButton")
+        self.comfirm_button = self.findChild(QPushButton, "confirmButton")
         self.completer = QCompleter(bird_names)
         self.addlineButton.clicked.connect(self.add_edit_row)
-        self.comform_button.clicked.connect(self.confirm_ans)
+        self.comfirm_button.clicked.connect(self.confirm_ans)
 
         self.med_preds = pd.DataFrame({})
         self.row_index = 1

@@ -132,4 +132,4 @@ dmypy.json
 .vscode/
 
 test.py
-runs/
+detect_old_school.py
