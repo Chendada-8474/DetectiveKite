@@ -198,29 +198,3 @@ class Predictor():
 
         return result_data
 
-if __name__ == "__main__":
-    from preprocess import *
-
-    # path = "D:/coding/dataset/perch-mount/NCYU/test/rcd625/06280583.JPG"
-    # path = "D:/coding/dataset/perch-mount/NCYU/test/rcd625/016.jpg"
-    # path = "D:/coding/dataset/perch-mount/NPUST/test/鹽埔20220329-0424/"
-
-    # path = "D:/coding/dataset/perch-mount/NCYU/test/100EK113"
-    path = "D:/coding/dataset/perch-mount/NCYU/test/rcd625"
-    # vid = ["06230560.MP4", "06220374.MP4", "06220094.MP4"]
-
-
-    # path = "D:/download/test_perch_detect"
-    path = "D:/coding/python/DetectiveKite/sample"
-    imgs = os.listdir(path)
-
-    medias = MediaJudgement()
-    medias.classify(path)
-    init = PredictInit()
-
-    predictor = Predictor(init.model_color, init.model_infrad)
-    img_dataset = ImageDataset(path, medias.color_image)
-    # color_video_results = predictor.detect_vids(path, medias.color_video, model_type="color", interval=1)
-    data = predictor.detect_imgs(img_dataset, model_type = "color", batch_size = 4)
-    # print(color_video_results)
-

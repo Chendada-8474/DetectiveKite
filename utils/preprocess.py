@@ -146,29 +146,3 @@ class PredictInit():
         else:
             print("Detecting all infrared model species.")
 
-
-if __name__ == "__main__":
-    import os
-
-
-    # path = "D:/coding/dataset/perch-mount/NCYU/test/rcd625/06280583.JPG"
-    # path = "D:/coding/dataset/perch-mount/NCYU/test/rcd625/016.jpg"
-    # path = "D:/coding/dataset/perch-mount/NPUST/test/鹽埔20220329-0424/2022鹽埔砂石場04200348.MP4"
-
-    # path = "D:/coding/dataset/perch-mount/NCYU/test/100EK113"
-    path = "D:/coding/dataset/perch-mount/NCYU/test/rcd625"
-    # vid = ["06230560.MP4", "06220374.MP4", "06220094.MP4"]
-    files = os.listdir(path)
-    judgement = MediaJudgement()
-
-    begin = datetime.now()
-    judgement.classify(path)
-    end = datetime.now()
-    print(end - begin)
-
-    print(judgement.color_image)
-    print(judgement.color_video)
-    print(judgement.infrad_image)
-    print(judgement.infrad_video)
-
-    # init = PredictInit()
