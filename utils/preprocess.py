@@ -123,9 +123,12 @@ class PredictInit():
             "ymax": [],
         })
 
-    def set_model(self, classes_color = None, classes_infrad = None):
+    def set_model(self, classes_color = None, classes_infrad = None, conf_color = 0.25, conf_infrad = 0.25):
         if self.model_color and self.device == "cuda": self.model_color.cuda()
         if self.model_infrad and self.device == "cuda": self.model_infrad.cuda()
+
+        self.model_color.conf = conf_color
+        self.model_infrad.conf = conf_infrad
 
         print("Color model species detecting:")
         if classes_color:

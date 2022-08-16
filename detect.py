@@ -91,7 +91,7 @@ def detect(opt):
     infrad_img_dataset = ImageDataset(dir_path, infrad_images)
 
     model_init = PredictInit()
-    model_init.set_model(opt.classes_color, opt.classes_infrared)
+    model_init.set_model(classes_color = opt.classes_color, classes_infrad = opt.classes_infrared, conf_color = opt.conf_thres_color, conf_infrad = opt.conf_thres_infrared)
     predictor = Predictor(model_init.model_color, model_init.model_infrad)
 
     color_image_results = predictor.detect_imgs(color_img_dataset, model_type="color", batch_size=batch_size)

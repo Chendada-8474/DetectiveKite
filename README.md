@@ -69,17 +69,24 @@ Trail camera normally fill infrared light at night or in bad light condition whe
 | argument | abbreviation | parameter | default | require |
 | -------- | -------- | -------- | -------- | ------- |
 | `--source`              | `-so`  | path                   |  | True |
+| `--batch-size`          | `-bs`  | batch size, positive integer |  | True |
 | `--classes-color`       | `-cc`  | int series             | all classes | False |
 | `--classes-infrared`    | `-ci`  | int series             | all classes | False |
 | `--conf-thres-color`    | `-ctc` | float, range 0~1       | 0.25 | False |
 | `--conf-thres-infrared` | `-cti` | float, range 0~1       | 0.25 | False |
-| `--vedio-interval`      | `-vi`  | float (second)           | 1 | False |
-| `--color-mode`          | `-cm`  | all, color or infrared | all | False |
-| `--name`                | `-na`   | results folder name    | exp |  False |
-| `--sp-name`             | `-sn`   | sci, ch or jp    | en |  False |
+| `--vedio-interval`      | `-vi`  | float (second)         | 1 | False |
+| `--name`                | `-na`  | results folder name    | exp |  False |
+| `--sp-name`             | `-sn`  | sci, ch or jp          | en |  False |
+
+##### Batch Size
+Please set this as big as you can.
+
+```
+python detect.py -so path\ -bs 24   # Batch Size 24
+```
+
 
 ##### Classes
-
 
 When deteting, you are able to use
 `--classes-color` and `--classes-infrared` to spefify classes. Information of classes is in `./model/exp_color/classes_color.csv` and `./model/exp_infrared/classes_infrared.csv`.
@@ -118,13 +125,6 @@ Detecting EACH frame of video just for knowing what kind of birds stanted on per
 python detect.py -so path\ -vi 2   # detect video frame only in 2s interval
 ```
 
-##### Color Mode
-DetectiveKite judge whether a file gray-scale or not before detection. If you files are all color or gray-scale, set the `--color-mode`. DetectiveKite will skip the judgement step. It may speed up the processing.
-
-```
-python detect.py -so path\ -cm color   # use color model to detect all files
-```
-
 ##### Saved Folder Name
 After detection, results will be saved to `./runs/data/exp/`. exp is the default folder name. You can change the name via `--name`.
 
@@ -158,9 +158,9 @@ python detect.py -so path\ -sn ch    # add Chinese common name
 ### Draw Bounding Box and Label Name
 If you want some thing cool like these:
 
-![](https://github.com/Chendada-8474/DetectiveKite/blob/main/runs/detect/exp/016.jpg?raw=true)
+![](https://github.com/Chendada-8474/DetectiveKite/blob/main/runs/detect/exp/img019.jpg?raw=true)
 
-![](https://github.com/Chendada-8474/DetectiveKite/blob/main/runs/detect/exp2/005.JPG?raw=true)
+![](https://github.com/Chendada-8474/DetectiveKite/blob/main/runs/detect/exp2/img001.jpg?raw=true)
 
 Please use `yolov5 detect` to do it. see [yolov5 package](https://pypi.org/project/yolov5/)
 
