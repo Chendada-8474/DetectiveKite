@@ -88,10 +88,8 @@ def detect(opt):
     color_videos = medias.color_video
     infrad_videos = medias.infrad_video
 
-    transform = transforms.Compose([transforms.Resize((480, 640))])
-
-    color_img_dataset = ImageDataset(dir_path, color_images, transform=transform)
-    infrad_img_dataset = ImageDataset(dir_path, infrad_images, transform=transform)
+    color_img_dataset = ImageDataset(dir_path, color_images)
+    infrad_img_dataset = ImageDataset(dir_path, infrad_images)
 
     model_init = PredictInit()
     model_init.set_model(classes_color = opt.classes_color, classes_infrad = opt.classes_infrared, conf_color = opt.conf_thres_color, conf_infrad = opt.conf_thres_infrared)
