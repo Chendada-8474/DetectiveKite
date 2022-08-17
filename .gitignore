@@ -133,3 +133,4 @@ dmypy.json
 
 test.py
 detect_old_school.py
+runs/

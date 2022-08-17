@@ -40,17 +40,18 @@ class MediaJudgement:
                 print("Unsupported file type detected: %s " % os.path.basename(mid_path))
                 return ()
         except:
-            print("Skip one media: %s\nThis file could be corrupted" % mid_path)
+            print("Skip one media: %s/nThis file could be corrupted" % mid_path)
             return ()
 
         detect_wid, detect_hei = 64, 48
         x_begin = int(round(len(open_image)/2 - detect_wid/2, 0))
         y_begin = int(round(len(open_image[0])/2 - detect_hei/2, 0))
 
-        # convert_tensor = transforms.ToTensor()
         detect_ary = open_image[y_begin:y_begin+detect_hei, x_begin:x_begin+detect_wid]
         ch0, ch1, ch2 = detect_ary[:, :, 0], detect_ary[:, :, 1], detect_ary[:, :, 2]
-        not_zero = np.count_nonzero(ch0 - ch1)/(detect_wid*detect_hei)
+        diff = ch0 - ch1
+        diff[diff < 5] = 0
+        not_zero = np.count_nonzero(diff)/(detect_wid*detect_hei)
         is_gray = True if not_zero < 0.05 else False
         return is_gray, is_image, dt
 
@@ -61,6 +62,7 @@ class MediaJudgement:
         mids = [os.path.join(dir_path, i) for i in files]
         pool = Pool(self.available_cpus)
         outputs = pool.map(self._judge_media, mids)
+
 
         for i, o in enumerate(outputs):
             if len(o) == 0:
@@ -75,8 +77,8 @@ class MediaJudgement:
                 self.color_image[0].append(files[i])
                 self.color_image[1].append(o[2])
             elif not o[0] and not o[1]:
-                self.infrad_video[0].append(files[i])
-                self.infrad_video[1].append(o[2])
+                self.color_video[0].append(files[i])
+                self.color_video[1].append(o[2])
 
         end = datetime.now()
         print("Time consumption: ", end - begin)
@@ -146,3 +148,7 @@ class PredictInit():
         else:
             print("Detecting all infrared model species.")
 
+
+if __name__ == "__main__":
+    test = MediaJudgement()
+    test.classify("D:/coding/dataset/perch-mount/NPUST/test/102EK113")
