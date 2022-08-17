@@ -1,7 +1,7 @@
 from torch.utils.data import Dataset, DataLoader
 from torchvision.io import read_image
-from tqdm import tqdm
 from tqdm.contrib import tzip
+from tqdm import tqdm
 import pandas as pd
 import os
 import cv2
@@ -171,6 +171,7 @@ class Predictor():
         print("detecting %s (batch size %s) %s images..." % (len(dataset), batch_size, model_type))
         for data in tqdm(img_loader):
             img, file_name, date_time = data
+            # [i.numpy() for i in img]
             results = model([i.numpy() for i in img], size = 640)
             for d, fn, dt in zip(results.pandas().xyxy, file_name, date_time):
                 if len(d) > 0:

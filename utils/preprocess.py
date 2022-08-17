@@ -3,6 +3,7 @@ from dateutil.parser import parse
 from ffmpeg import probe
 from PIL import Image
 from datetime import datetime
+from tqdm import tqdm
 import pandas as pd
 import numpy as np
 import yolov5
@@ -35,7 +36,6 @@ class MediaJudgement:
                 ved = cv2.VideoCapture(mid_path)
                 suc, open_image = ved.read()
                 is_image = False
-                # open_image = Image.fromarray(open_image)
             else:
                 print("Unsupported file type detected: %s " % os.path.basename(mid_path))
                 return ()
@@ -57,12 +57,10 @@ class MediaJudgement:
 
     def classify(self, dir_path: str):
         print("Scaning files in direction...")
-        begin = datetime.now()
         files = os.listdir(dir_path)
         mids = [os.path.join(dir_path, i) for i in files]
         pool = Pool(self.available_cpus)
-        outputs = pool.map(self._judge_media, mids)
-
+        outputs = tqdm(pool.imap(self._judge_media, mids), total=len(mids))
 
         for i, o in enumerate(outputs):
             if len(o) == 0:
@@ -79,9 +77,6 @@ class MediaJudgement:
             elif not o[0] and not o[1]:
                 self.color_video[0].append(files[i])
                 self.color_video[1].append(o[2])
-
-        end = datetime.now()
-        print("Time consumption: ", end - begin)
 
         print("%s color images, %s infrared images, %s color videos, %s infrared videos detected" % (len(self.color_image[0]), len(self.infrad_image[0]), len(self.color_video[0]), len(self.infrad_video[0])))
 
@@ -151,4 +146,4 @@ class PredictInit():
 
 if __name__ == "__main__":
     test = MediaJudgement()
-    test.classify("D:/coding/dataset/perch-mount/NPUST/test/102EK113")
+    test.classify("D:/coding/dataset/perch-mount/NPUST/test/池上3慣行0504-0603")
