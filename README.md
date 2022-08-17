@@ -164,10 +164,10 @@ Please use `yolov5 detect` to do it. see [yolov5 package](https://pypi.org/proje
 
 example:
 ```
-yolov5 detect --source ./sample/016.jpg --weights ./model/exp_color/best.pt    # color media
+yolov5 detect --source ./sample/img019.jpg --weights ./model/exp_color/best.pt    # color media
 ```
 ```
-yolov5 detect --source ./sample/005.JPG --weights ./model/exp_infrared/best.pt    # infrared media
+yolov5 detect --source ./sample/001.jpg --weights ./model/exp_infrared/best.pt    # infrared media
 ```
 
 
