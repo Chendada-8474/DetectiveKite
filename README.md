@@ -167,7 +167,7 @@ example:
 yolov5 detect --source ./sample/img019.jpg --weights ./model/exp_color/best.pt    # color media
 ```
 ```
-yolov5 detect --source ./sample/001.jpg --weights ./model/exp_infrared/best.pt    # infrared media
+yolov5 detect --source ./sample/img001.jpg --weights ./model/exp_infrared/best.pt    # infrared media
 ```
 
 
