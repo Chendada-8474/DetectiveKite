@@ -162,6 +162,10 @@ If you want some thing cool like these:
 
 Please use `yolov5 detect` to do it. see [yolov5 package](https://pypi.org/project/yolov5/)
 
+ or video
+https://youtu.be/92ner2dGfrg
+https://youtu.be/jlM8AfVWZj0
+
 example:
 ```
 yolov5 detect --source ./sample/img019.jpg --weights ./model/exp_color/best.pt    # color media
