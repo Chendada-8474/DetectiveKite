@@ -54,12 +54,10 @@ Colab is an easy way to execute python on browser.
 ### Detection
 
 #### detect.py
-`detect.py` runs source of images, video, or a folder. use `--source` or `-so` to set path of target media. The results will be saved to `runs/data/`.
+`detect.py` runs source of a folder. use `--source` or `-so` to set path of target folder. The results will be saved to `runs/data/`.
 
 ```
-python detect.py -so img.jpg   # image
-                      vid.mp4   # video
-                      path\     # directory
+python detect.py -so path\      # directory
 ```
 
 #### Argument Parameter
@@ -82,7 +80,7 @@ Trail camera normally fill infrared light at night or in bad light condition whe
 Please set this as big as you can.
 
 ```
-python detect.py -so path\ -bs 24   # Batch Size 24
+python detect.py -so path\ -bs 24      # Batch Size 24
 ```
 
 
@@ -122,7 +120,7 @@ python detect.py -so path\ -ctc 0.6 -cti 0.75
 Detecting EACH frame of video just for knowing what kind of birds stanted on perch mount is not a efficient way. DetectiveKite detect video in interval to speed up the processing of detection. Set `--video-interval` to adjust the suitable detection interval base on your video length.
 
 ```
-python detect.py -so path\ -vi 2   # detect video frame only in 2s interval
+python detect.py -so path\ -vi 2     # detect video frame only in 2s interval
 ```
 
 ##### Saved Folder Name
@@ -149,9 +147,9 @@ python detect.py -so path\
 
 add name
 ```
-python detect.py -so path\ -sn ch    # add Chinese common name
-　　　　　　　　　　　　　　　　　sci   # add scientific name
-                               jp    # add Japanese name
+python detect.py -so path\ -sn ch           # add Chinese common name
+　　　　　　　　　　　　　　　　　sci          # add scientific name
+                               jp           # add Japanese name
                                ch sci jp    # Multiple is also legal
 ```
 
