@@ -1,7 +1,7 @@
 from torch.utils.data import Dataset, DataLoader
 from torchvision.io import read_image
-from tqdm.contrib import tzip
 from tqdm import tqdm
+from tqdm.contrib import tzip
 import pandas as pd
 import os
 import cv2
@@ -19,10 +19,11 @@ class ImageDataset(Dataset):
     def __getitem__(self, idx):
         img_path = os.path.join(self.img_dir, self.imgs[idx])
         image = read_image(img_path)
+        shape = image.shape
         if self.transform is not None:
             image = self.transform(image)
 
-        return image, self.imgs[idx], self.dts[idx]
+        return image, self.imgs[idx], self.dts[idx], shape
 
 
 class Predictor():
@@ -170,10 +171,9 @@ class Predictor():
 
         print("detecting %s (batch size %s) %s images..." % (len(dataset), batch_size, model_type))
         for data in tqdm(img_loader):
-            img, file_name, date_time = data
-            # [i.numpy() for i in img]
+            img, file_name, date_time, shape = data
             results = model([i.numpy() for i in img], size = 640)
-            for d, fn, dt in zip(results.pandas().xyxy, file_name, date_time):
+            for d, fn, dt, w, h in zip(results.pandas().xyxy, file_name, date_time, shape[1], shape[2]):
                 if len(d) > 0:
                     d["num_inds"] = 1
                     d["file_name"] = fn
@@ -191,7 +191,10 @@ class Predictor():
                         'model' : 'first',
                         'media' : 'first',
                     }).reset_index()
-
+                    d['xmin'] = d['xmin']*int(w/480)
+                    d['ymin'] = d['ymin']*int(h/640)
+                    d['xmax'] = d['xmax']*int(w/480)
+                    d['ymax'] = d['ymax']*int(h/640)
                 else:
                     d = self._accident_shot(fn, dt, "image", model_type)
 
