@@ -75,8 +75,8 @@ class MediaJudgement:
                 self.color_image[0].append(files[i])
                 self.color_image[1].append(o[2])
             elif not o[0] and not o[1]:
-                self.color_video[0].append(files[i])
-                self.color_video[1].append(o[2])
+                self.infrad_video[0].append(files[i])
+                self.infrad_video[1].append(o[2])
 
         end = datetime.now()
         print("Time consumption: ", end - begin)
