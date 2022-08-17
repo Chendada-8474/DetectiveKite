@@ -134,21 +134,22 @@ class Predictor():
                 data["datetime"] = dt
                 data["model"] = model_type
                 data["media"] = "video"
+                data = data.groupby(["file_name", "class", "name", "datetime"]).agg({
+                        'confidence' : 'mean',
+                        'num_inds' : 'max',
+                        'xmin' : 'min',
+                        'ymin' : 'min',
+                        'xmax' : 'max',
+                        'ymax' : 'max',
+                        'media': 'first',
+                        'model': 'first',
+                    }).reset_index()
             else:
                 data = self._accident_shot(f, dt, "video", model_type)
 
             result_data = pd.concat([result_data, data])
 
-        result_data = result_data.groupby(["file_name", "class", "name", "datetime"]).agg({
-                'confidence' : 'mean',
-                'num_inds' : 'max',
-                'xmin' : 'min',
-                'ymin' : 'min',
-                'xmax' : 'max',
-                'ymax' : 'max',
-                'media': 'first',
-                'model': 'first',
-            }).reset_index()
+
 
         return result_data
 
