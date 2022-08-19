@@ -103,7 +103,7 @@ def save_csv(dataframe, dir_name: str, ori_dir_name: str, sp_lang: list):
     index = 0
     while True:
         if dir_name + str(index) not in dirs:
-            os.mkdir("./runs/data/" + dir_name + str(index))
+            os.mkdir("./runs/data/%s" % dir_name + str(index))
             break
         else:
             index += 1
@@ -131,10 +131,10 @@ def save_csv(dataframe, dir_name: str, ori_dir_name: str, sp_lang: list):
         )
 
     dataframe.to_csv(
-        "./runs/data/" + dir_name + str(index) + "/" + ori_dir_name + ".csv",
+        "./runs/data/%s/%s" % (dir_name + str(index), ori_dir_name + ".csv"),
         index=False,
     )
-    return "./runs/data/" + dir_name + str(index)
+    return "./runs/data/%s" % (dir_name + str(index))
 
 
 def detect(opt):
