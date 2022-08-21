@@ -164,8 +164,8 @@ Please use `yolov5 detect` to do it. see [yolov5 package](https://pypi.org/proje
 
 or video
 
-- [Color Video detection](https://youtu.be/92ner2dGfrg)
-- [Infrared Video detection](https://youtu.be/jlM8AfVWZj0)
+- [Color Video detection Demo](https://youtu.be/92ner2dGfrg)
+- [Infrared Video detection Demo](https://youtu.be/jlM8AfVWZj0)
 
 example:
 ```

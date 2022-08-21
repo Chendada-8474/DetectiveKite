@@ -134,7 +134,7 @@ def save_csv(dataframe, dir_name: str, ori_dir_name: str, sp_lang: list):
         "./runs/data/%s/%s" % (dir_name + str(index), ori_dir_name + ".csv"),
         index=False,
     )
-    return "./runs/data/%s" % (dir_name + str(index))
+    return "./runs/data/%s" % dir_name + str(index)
 
 
 def detect(opt):
