@@ -187,6 +187,14 @@ def detect(opt):
         ignore_index=True,
     )
     results["num_inds"] = results["num_inds"].astype("int")
+    results["class"] = results["class"].apply(lambda x: int(x) if x else None)
+    results["xmin"] = results["xmin"].apply(lambda x: round(x, 0) if x else None)
+    results["ymin"] = results["ymin"].apply(lambda x: round(x, 0) if x else None)
+    results["xmax"] = results["xmax"].apply(lambda x: round(x, 0) if x else None)
+    results["ymax"] = results["ymax"].apply(lambda x: round(x, 0) if x else None)
+    results["confidence"] = results["confidence"].apply(
+        lambda x: round(x, 4) if x else None
+    )
 
     save_dir = save_csv(results, opt.name, os.path.basename(dir_path), opt.sp_name)
     print("Results saved to %s" % save_dir)
