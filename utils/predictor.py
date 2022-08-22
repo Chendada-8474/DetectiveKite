@@ -141,6 +141,7 @@ class Predictor:
 
             if len(data) > 0:
                 data["file_name"] = f
+                data["class"] = data["class"].astype(int)
                 data["datetime"] = dt
                 data["model"] = model_type
                 data["media"] = "video"
@@ -197,6 +198,7 @@ class Predictor:
                 if len(d) > 0:
                     d["num_inds"] = 1
                     d["file_name"] = fn
+                    d["class"] = d["class"].astype(int)
                     d["datetime"] = dt
                     d["model"] = model_type
                     d["media"] = "image"

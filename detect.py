@@ -188,7 +188,7 @@ def detect(opt):
     )
     results["num_inds"] = results["num_inds"].astype("int")
 
-    save_dir = save_csv(results, opt.name, os.path.basename(dir_path[:-1]), opt.sp_name)
+    save_dir = save_csv(results, opt.name, os.path.basename(dir_path), opt.sp_name)
     print("Results saved to %s" % save_dir)
 
 
