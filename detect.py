@@ -187,7 +187,6 @@ def detect(opt):
         ignore_index=True,
     )
     results["num_inds"] = results["num_inds"].astype("int")
-    results["class"] = results["class"].apply(lambda x: int(x) if x else None)
     results["xmin"] = results["xmin"].apply(lambda x: round(x, 0) if x else None)
     results["ymin"] = results["ymin"].apply(lambda x: round(x, 0) if x else None)
     results["xmax"] = results["xmax"].apply(lambda x: round(x, 0) if x else None)
